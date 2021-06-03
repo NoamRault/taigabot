@@ -11,5 +11,6 @@
   "dependencies": {
     "discord.js": "^12.5.3",
     "random-int": "^3.0.0"
-  }
+  },
+  "type": "module"
 }
