@@ -1,12 +1,16 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
 const prefix = "!";
+const client = new Discord.Client({
+    presence: {
+        status: 'online',
+        activity: {
+            name: '!bestwaifu',
+            type: 'PLAYING',
+        },
+    },
+});
 
 client.on('ready', () => {
-    client.user.setPresence({
-        game: { name: '!bestwaifu' },
-        status: 'online',
-    });
     console.log(`Logged in as ${client.user.tag}!`);
 });
 
@@ -14,9 +18,7 @@ client.on('message', msg => {
     if (msg.author.bot) return;
     if (!msg.content.startsWith(prefix)) return;
   
-    const commandBody = msg.content.slice(prefix.length);
-    const args = commandBody.split(' ');
-    const command = args.shift().toLowerCase();
+    const command = msg.content.slice(prefix.length).toLowerCase();
 
     if (command === 'bestwaifu') {
         const Urls = [
