@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const prefix = "!";
-const randomInt = require('random-int');
 
 client.on('ready', () => {
     client.user.setPresence({
@@ -20,17 +19,16 @@ client.on('message', msg => {
     const command = args.shift().toLowerCase();
 
     if (command === 'bestwaifu') {
-        var a = randomInt(4);
-        var url;
-        switch(a) {
-            case 0 : url = 'https://static.wikia.nocookie.net/tora-dora/images/8/82/E17_-_9.png/revision/latest?cb=20160728131220'; break;
-            case 1 : url = 'https://www.nautiljon.com/images/perso/00/61/taiga_aisaka_4516.jpg'; break;
-            case 2 : url = 'https://i.pinimg.com/originals/3e/2c/db/3e2cdb504a1d1cd814885ebdf971c6b8.jpg'; break;
-            case 3 : url = 'https://i.pinimg.com/originals/0d/d3/ac/0dd3ac5cac1cd782e0937acc720c5e9e.jpg'; break;
-            case 4 : url = 'https://i.ytimg.com/vi/aozedrjkMdo/maxresdefault.jpg'; break;
-        }
-
-        msg.channel.send('Taiga Best Waifu ' + url);
+        const Urls = [
+            'https://static.wikia.nocookie.net/tora-dora/images/8/82/E17_-_9.png/revision/latest?cb=20160728131220',
+            'https://www.nautiljon.com/images/perso/00/61/taiga_aisaka_4516.jpg',
+            'https://i.pinimg.com/originals/3e/2c/db/3e2cdb504a1d1cd814885ebdf971c6b8.jpg',
+            'https://i.pinimg.com/originals/0d/d3/ac/0dd3ac5cac1cd782e0937acc720c5e9e.jpg',
+            'https://i.ytimg.com/vi/aozedrjkMdo/maxresdefault.jpg'
+        ];
+        
+        const url = Math.floor(Math.random() * Urls.length);
+        msg.channel.send('Taiga Best Waifu ' + Urls[url]);
     }
 });
 
