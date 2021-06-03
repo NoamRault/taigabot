@@ -1,7 +1,7 @@
-const Discord = require("discord.js");
+const Discord = require('discord.js');
 const client = new Discord.Client();
 const prefix = "!";
-import randomInt from 'random-int';
+const randomInt = require('random-int');
 
 client.on('ready', () => {
     client.user.setPresence({
