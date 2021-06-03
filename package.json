@@ -1,6 +1,6 @@
 {
   "name": "taigabot",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,8 @@
   "author": "NoamRault",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.5.3"
+    "discord-reply": "^0.1.2",
+    "discord.js": "^12.5.3",
+    "dotenv": "^10.0.0"
   }
 }
