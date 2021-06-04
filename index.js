@@ -36,24 +36,37 @@ client.on('message', msg => {
         if (msg.content === 'deux') msg.channel.send('trois');
     }
 
-    else if (!msg.author.bot && msg.content.endsWith('fait')) msg.channel.send('-sse');
-
-    else if (msg.content.startsWith(prefix)) { // répond si le message commence par un .
-        const command = msg.content.slice(prefix.length).toLowerCase();
-
-        switch(command) {
-            case 'help' :
-                help(msg);
-                break;
-            case 'about' :
-                about(msg);
-                break;
-            case 'bestwaifu' :
-                reponseImg(msg, 'Taiga Best Waifu');
-                break;
-            case 'spamtaiga' :
-                spamTaiga(msg);
-                break;
+    else if (!msg.author.bot) {
+        if (msg.content.startsWith(prefix)) { // répond si le message commence par un .
+            const command = msg.content.slice(prefix.length).toLowerCase();
+            switch(command) {
+                case 'help' :
+                    help(msg);
+                    break;
+                case 'about' :
+                    about(msg);
+                    break;
+                case 'bestwaifu' :
+                    reponseImg(msg, 'Taiga Best Waifu');
+                    break;
+                case 'spamtaiga' :
+                    spamTaiga(msg);
+                    break;
+            }
+        }
+        else {
+            switch(msg.content) {
+                case endsWith('fait') :
+                    msg.channel.send('-sse');
+                    continue;
+                case 'a' :
+                case contains(' a ') :
+                case startsWith('a ') :
+                case endsWith(' a') :
+                    msg.channel.send({files: ['https://i.pinimg.com/originals/d4/e1/72/d4e17229e7169a5f1df17934cab173c5.gif']});
+                    break;
+                default : break;
+            } 
         }
     }
 });
