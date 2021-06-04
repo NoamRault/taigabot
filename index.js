@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
+
 require('discord-reply');
 require('dotenv').config();
+
 const prefix = ".";
 const client = new Discord.Client({
     presence: {
@@ -12,37 +14,57 @@ const client = new Discord.Client({
     },
 });
 
+
+// déclarations des emojis -------------------------
+const emojiTaiga = '<:Taiga:850087986036867092>';
+// -------------------------------------------------
+
+// message de lancement ----------------------------
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
+// -------------------------------------------------
 
+// répond aux messages et commandes ----------------
 client.on('message', msg => {
-    if (msg.content === '-feur') reponse(msg, 'Ta gueule');
+    if (msg.author.id === '847525292918177792') { // répond à LeBot
+        if (msg.content === '-feur') reponseImg(msg, 'Ta gueule');
+        if (msg.content === 'deux') msg.channel.send('trois');
+    }
 
-    if (msg.content.startsWith(prefix)) { // message commence par un !
+    else if (msg.content.startsWith(prefix)) { // répond si le message commence par un .
         const command = msg.content.slice(prefix.length).toLowerCase();
 
         if (command === 'help') help(msg);
-        if (command === 'bestwaifu') reponse(msg, 'Taiga Best Waifu');
-        if (command === 'spamtaiga') {
-            let string = '<:Taiga:850087986036867092>';
-            for (let i = 0; i < 10 + Math.floor(Math.random() * 5); i++) {
-                string += ' <:Taiga:850087986036867092>';
-            }
-            msg.channel.send(string);
-        }
+        if (command === 'bestwaifu') reponseImg(msg, 'Taiga Best Waifu');
+        if (command === 'spamtaiga') spamTaiga(msg);
     }
 });
+// -------------------------------------------------
 
+// liste les commandes disponibles -----------------
 function help(msg) {
     const string = "```Commandes :\n"
+                    + "  .help\n"
                     + "  .bestwaifu\n"
                     + "  .spamtaiga\n"
                     + "```";
     msg.lineReply(string);
 }
+// -------------------------------------------------
 
-function reponse(msg, string) {
+// spamme l'emoji Taiga entre 10 et 15 fois --------
+function spamTaiga(msg) {
+    let string = emojiTaiga;
+    for (let i = 0; i < 10 + Math.floor(Math.random() * 5); i++) {
+        string += ' ' + emojiTaiga;
+    }
+    msg.channel.send(string);
+}
+// -------------------------------------------------
+
+// répond avec une image de Taiga ------------------
+function reponseImg(msg, string) {
     const Urls = [
         'https://static.wikia.nocookie.net/tora-dora/images/8/82/E17_-_9.png/revision/latest?cb=20160728131220',
         'https://www.nautiljon.com/images/perso/00/61/taiga_aisaka_4516.jpg',
@@ -52,7 +74,10 @@ function reponse(msg, string) {
     ];
     
     const url = Math.floor(Math.random() * Urls.length);
-    msg.lineReply(string + ' ' + Urls[url] + ' <:Taiga:850087986036867092>');
+    msg.lineReply(string + ' ' + Urls[url] + ' ' + emojiTaiga);
 }
+// -------------------------------------------------
 
+// se connecte avec le token -----------------------
 client.login(process.env.TOKEN);
+// -------------------------------------------------
