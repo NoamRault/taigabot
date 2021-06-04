@@ -1,6 +1,6 @@
 {
   "name": "taigabot",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Taiga Best Waifu",
   "main": "index.js",
   "scripts": {
