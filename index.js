@@ -55,14 +55,15 @@ client.on('message', msg => {
             }
         }
         else {
-            switch(msg.content) {
-                case endsWith('fait') :
+            const str = msg.content.toLowerCase();
+            switch(str) {
+                case str.endsWith('fait') :
                     msg.channel.send('-sse');
-                    continue;
+                    break;
                 case 'a' :
-                case contains(' a ') :
-                case startsWith('a ') :
-                case endsWith(' a') :
+                case str.includes(' a ') :
+                case str.startsWith('a ') :
+                case str.endsWith(' a') :
                     msg.channel.send({files: ['https://i.pinimg.com/originals/d4/e1/72/d4e17229e7169a5f1df17934cab173c5.gif']});
                     break;
                 default : break;
