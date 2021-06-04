@@ -36,13 +36,25 @@ client.on('message', msg => {
         if (msg.content === 'deux') msg.channel.send('trois');
     }
 
+    else if (!msg.author.bot && msg.content.endsWith('fait')) msg.channel.send('-sse');
+
     else if (msg.content.startsWith(prefix)) { // répond si le message commence par un .
         const command = msg.content.slice(prefix.length).toLowerCase();
 
-        if (command === 'help') help(msg);
-        if (command === 'about') about(msg);
-        if (command === 'bestwaifu') reponseImg(msg, 'Taiga Best Waifu');
-        if (command === 'spamtaiga') spamTaiga(msg);
+        switch(command) {
+            case 'help' :
+                help(msg);
+                break;
+            case 'about' :
+                about(msg);
+                break;
+            case 'bestwaifu' :
+                reponseImg(msg, 'Taiga Best Waifu');
+                break;
+            case 'spamtaiga' :
+                spamTaiga(msg);
+                break;
+        }
     }
 });
 // -------------------------------------------------
