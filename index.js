@@ -49,13 +49,18 @@ client.on('message', msg => {
 
 // liste les commandes disponibles -----------------
 function help(msg) {
-    const string = "```Commandes :\n"
-                    + "  .help\n"
-                    + "  .about\n"
-                    + "  .bestwaifu\n"
-                    + "  .spamtaiga\n"
-                    + "```";
-    msg.channel.send(string);
+    const helpEmbed = new Discord.MessageEmbed()
+    .attachFiles(['img/taiga.jpg'])
+	.setColor('#0099ff')
+	.setTitle('Liste des commandes')
+	.setDescription('Utilisez une commande en commençant un message par un point (ex : `.bestwaifu`)')
+    .addField('Général', 'bestwaifu\n spamtaiga', true)
+    .addField('Aide', 'help\n about', true)
+	.setThumbnail('attachment://taiga.jpg')
+	.setTimestamp()
+	.setFooter('TaigaBot', 'attachment://taiga.jpg');
+
+    msg.channel.send(helpEmbed);
 }
 // -------------------------------------------------
 
