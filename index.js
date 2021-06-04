@@ -32,7 +32,7 @@ client.on('ready', () => {
 // répond aux messages et commandes ----------------
 client.on('message', msg => {
     if (msg.author.id === '847525292918177792') { // répond à LeBot
-        if (msg.content === '-feur') reponseImg(msg, 'Ta gueule');
+        if (msg.content === '-feur') msg.lineReply('Ta gueule', 'https://thumbs.gfycat.com/AmbitiousBothDalmatian-size_restricted.gif');
         if (msg.content === 'deux') msg.channel.send('trois');
     }
 
