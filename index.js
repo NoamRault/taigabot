@@ -32,45 +32,58 @@ client.on('ready', () => {
 // répond aux messages et commandes ----------------
 client.on('message', msg => {
     if (msg.author.id === '847525292918177792') { // répond à LeBot
-        if (msg.content === '-feur') msg.lineReply('Ta gueule', {files: ['https://thumbs.gfycat.com/AmbitiousBothDalmatian-size_restricted.gif']});
-        if (msg.content === 'deux') msg.channel.send('trois');
+        lebot(msg, msg.content);
     }
-
     else if (!msg.author.bot) {
         if (msg.content.startsWith(prefix)) { // répond si le message commence par un .
-            const command = msg.content.slice(prefix.length).toLowerCase();
-            switch(command) {
-                case 'help' :
-                    help(msg);
-                    break;
-                case 'about' :
-                    about(msg);
-                    break;
-                case 'bestwaifu' :
-                    reponseImg(msg, 'Taiga Best Waifu');
-                    break;
-                case 'spamtaiga' :
-                    spamTaiga(msg);
-                    break;
-            }
+            commands(msg, msg.content.slice(prefix.length).toLowerCase());
         }
         else {
-            const str = msg.content.toLowerCase();
-            switch(str) {
-                case str.endsWith('fait') :
-                    msg.channel.send('-sse');
-                    break;
-                case 'a' :
-                case str.includes(' a ') :
-                case str.startsWith('a ') :
-                case str.endsWith(' a') :
-                    msg.channel.send({files: ['https://i.pinimg.com/originals/d4/e1/72/d4e17229e7169a5f1df17934cab173c5.gif']});
-                    break;
-                default : break;
-            } 
+            easteregg(msg, msg.content.toLowerCase());
         }
     }
 });
+// -------------------------------------------------
+
+// gère les réponses à LeBot -----------------------
+function lebot(msg, str) {
+    if (str === '-feur') {
+        msg.lineReply('Ta gueule', {files: ['https://thumbs.gfycat.com/AmbitiousBothDalmatian-size_restricted.gif']});
+    }
+    if (str === 'deux') {
+        msg.channel.send('trois');
+    }
+}
+// -------------------------------------------------
+
+// gère les commandes ------------------------------
+function commands(msg, command) {
+    switch(command) {
+        case 'help' :
+            help(msg);
+            break;
+        case 'about' :
+            about(msg);
+            break;
+        case 'bestwaifu' :
+            reponseImg(msg, 'Taiga Best Waifu');
+            break;
+        case 'spamtaiga' :
+            spamTaiga(msg);
+            break;
+    }
+}
+// -------------------------------------------------
+
+// gère les messages easter eggs -------------------
+function easteregg(msg, str) {
+    if (str.endsWith('fait')) {
+        msg.channel.send('-sse');
+    }
+    if (str === 'a' || str.includes(' a ') || str.startsWith('a ') || str.endsWith(' a')) {
+        msg.channel.send({files: ['https://i.pinimg.com/originals/d4/e1/72/d4e17229e7169a5f1df17934cab173c5.gif']});
+    }
+}
 // -------------------------------------------------
 
 // liste les commandes disponibles -----------------
