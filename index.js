@@ -1,8 +1,12 @@
 const Discord = require('discord.js');
-
 require('discord-reply');
 require('dotenv').config();
 
+// importation du package.json ---------------------
+var pjson = require('./package.json');
+// -------------------------------------------------
+
+// règle le status de TaigaBot ---------------------
 const prefix = ".";
 const client = new Discord.Client({
     presence: {
@@ -13,7 +17,7 @@ const client = new Discord.Client({
         },
     },
 });
-
+// -------------------------------------------------
 
 // déclarations des emojis -------------------------
 const emojiTaiga = '<:Taiga:850087986036867092>';
@@ -36,6 +40,7 @@ client.on('message', msg => {
         const command = msg.content.slice(prefix.length).toLowerCase();
 
         if (command === 'help') help(msg);
+        if (command === 'about') about(msg);
         if (command === 'bestwaifu') reponseImg(msg, 'Taiga Best Waifu');
         if (command === 'spamtaiga') spamTaiga(msg);
     }
@@ -46,10 +51,28 @@ client.on('message', msg => {
 function help(msg) {
     const string = "```Commandes :\n"
                     + "  .help\n"
+                    + "  .about\n"
                     + "  .bestwaifu\n"
                     + "  .spamtaiga\n"
                     + "```";
-    msg.lineReply(string);
+    msg.channel.send(string);
+}
+// -------------------------------------------------
+
+// affiche un "à propos" du bot --------------------
+function about(msg) {
+    const aboutEmbed = new Discord.MessageEmbed()
+    .attachFiles(['img/taiga.jpg'])
+	.setColor('#0099ff')
+	.setTitle('TaigaBot')
+	.setURL('https://github.com/NoamRault/taigabot')
+	.setAuthor(pjson.author, 'attachment://taiga.jpg', 'https://github.com/NoamRault')
+	.setDescription('v' + pjson.version + "\n" + pjson.description)
+	.setThumbnail('attachment://taiga.jpg')
+	.setTimestamp()
+	.setFooter('Taiga Best Waifu', 'attachment://taiga.jpg');
+
+    msg.channel.send(aboutEmbed);
 }
 // -------------------------------------------------
 
@@ -65,16 +88,17 @@ function spamTaiga(msg) {
 
 // répond avec une image de Taiga ------------------
 function reponseImg(msg, string) {
-    const Urls = [
-        'https://static.wikia.nocookie.net/tora-dora/images/8/82/E17_-_9.png/revision/latest?cb=20160728131220',
-        'https://www.nautiljon.com/images/perso/00/61/taiga_aisaka_4516.jpg',
-        'https://i.pinimg.com/originals/3e/2c/db/3e2cdb504a1d1cd814885ebdf971c6b8.jpg',
-        'https://i.pinimg.com/originals/0d/d3/ac/0dd3ac5cac1cd782e0937acc720c5e9e.jpg',
-        'https://i.ytimg.com/vi/aozedrjkMdo/maxresdefault.jpg'
+    const Imgs = [
+        './img/taiga.jpg',
+        './img/taiga1.png',
+        './img/taiga2.jpg',
+        './img/taiga3.jpg',
+        './img/taiga4.jpg',
+        './img/taiga5.jpg'
     ];
     
-    const url = Math.floor(Math.random() * Urls.length);
-    msg.lineReply(string + ' ' + Urls[url] + ' ' + emojiTaiga);
+    const img = new Discord.MessageAttachment(Imgs[Math.floor(Math.random() * Imgs.length)]);
+    msg.lineReply(emojiTaiga + ' ' + string + ' ' + emojiTaiga, img);
 }
 // -------------------------------------------------
 
