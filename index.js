@@ -39,7 +39,7 @@ client.on('message', msg => {
             commands(msg, msg.content.slice(prefix.length).toLowerCase());
         }
         else {
-            easteregg(msg, msg.content.toLowerCase());
+            easterEgg(msg, msg.content.toLowerCase());
         }
     }
 });
@@ -48,7 +48,7 @@ client.on('message', msg => {
 // gère les réponses à LeBot -----------------------
 function lebot(msg, str) {
     if (str === '-feur') {
-        msg.lineReply('Ta gueule', {files: ['https://thumbs.gfycat.com/AmbitiousBothDalmatian-size_restricted.gif']});
+        taGueule(msg);
     }
     if (str === 'deux') {
         msg.channel.send('trois');
@@ -58,7 +58,8 @@ function lebot(msg, str) {
 
 // gère les commandes ------------------------------
 function commands(msg, command) {
-    switch(command) {
+    const args = command.split(' ');
+    switch(args[0]) {
         case 'help' :
             help(msg);
             break;
@@ -71,30 +72,44 @@ function commands(msg, command) {
         case 'spamtaiga' :
             spamTaiga(msg);
             break;
+        case 'tagueule' :
+            if (args.length > 1) {
+                taGueule(msg, args[1]);
+            }
+            else {
+                taGueule(msg);
+            }
+            break;
+        case 'a' :
+            aGura(msg);
+            break;
     }
 }
 // -------------------------------------------------
 
 // gère les messages easter eggs -------------------
-function easteregg(msg, str) {
+function easterEgg(msg, str) {
     if (str.endsWith('fait')) {
         msg.channel.send('-sse');
     }
     if (str === 'a' || str.includes(' a ') || str.startsWith('a ') || str.endsWith(' a')) {
-        msg.channel.send({files: ['https://i.pinimg.com/originals/d4/e1/72/d4e17229e7169a5f1df17934cab173c5.gif']});
+        aGura(msg);
     }
 }
 // -------------------------------------------------
 
 // liste les commandes disponibles -----------------
 function help(msg) {
+    const gen = ['bestwaifu', 'spamtaiga', 'a', 'tagueule'];
+    const hel = ['help', 'about'];
+
     const helpEmbed = new Discord.MessageEmbed()
     .attachFiles(['img/taiga.jpg'])
 	.setColor('#0099ff')
 	.setTitle('Liste des commandes')
 	.setDescription('Utilisez une commande en commençant un message par un point (ex : `.bestwaifu`)')
-    .addField('Général', 'bestwaifu\n spamtaiga', true)
-    .addField('Aide', 'help\n about', true)
+    .addField('Général', listTab(gen), true)
+    .addField('Aide', listTab(hel), true)
 	.setThumbnail('attachment://taiga.jpg')
 	.setTimestamp()
 	.setFooter('TaigaBot', 'attachment://taiga.jpg');
@@ -102,6 +117,15 @@ function help(msg) {
     msg.channel.send(helpEmbed);
 }
 // -------------------------------------------------
+
+// liste les commandes disponibles -----------------
+function listTab(tab) {
+    let str = tab[0];
+    for (let i=1; i<tab.length; i++) {
+        str += '\n' + tab[i];
+    }
+    return str;
+}
 
 // affiche un "à propos" du bot --------------------
 function about(msg) {
@@ -143,6 +167,24 @@ function reponseImg(msg, string) {
     
     const img = new Discord.MessageAttachment(Imgs[Math.floor(Math.random() * Imgs.length)]);
     msg.lineReply(emojiTaiga + ' ' + string + ' ' + emojiTaiga, img);
+}
+// -------------------------------------------------
+
+// répond "Ta gueule" avec un gif de Fanta ---------
+function taGueule(msg, mention) {
+    if (mention != null) {
+        msg.delete();
+        msg.channel.send('Ta gueule ' + mention, {files: ['https://thumbs.gfycat.com/AmbitiousBothDalmatian-size_restricted.gif']});
+    }
+    else {
+        msg.lineReply('Ta gueule', {files: ['https://thumbs.gfycat.com/AmbitiousBothDalmatian-size_restricted.gif']});
+    } 
+}
+// -------------------------------------------------
+
+// envoie le gif "a" de Gura -----------------------
+function aGura(msg) {
+    msg.channel.send({files: ['https://i.pinimg.com/originals/d4/e1/72/d4e17229e7169a5f1df17934cab173c5.gif']});
 }
 // -------------------------------------------------
 
