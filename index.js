@@ -174,10 +174,10 @@ function reponseImg(msg, string) {
 function taGueule(msg, mention) {
     if (mention != null) {
         msg.delete();
-        msg.channel.send('Ta gueule ' + mention, {files: ['https://thumbs.gfycat.com/AmbitiousBothDalmatian-size_restricted.gif']});
+        msg.channel.send('Ta gueule ' + mention, {files: ['vid/ta_gueule.mp4']});
     }
     else {
-        msg.lineReply('Ta gueule', {files: ['https://thumbs.gfycat.com/AmbitiousBothDalmatian-size_restricted.gif']});
+        msg.lineReply('Ta gueule', {files: ['vid/ta_gueule.mp4']});
     } 
 }
 // -------------------------------------------------
